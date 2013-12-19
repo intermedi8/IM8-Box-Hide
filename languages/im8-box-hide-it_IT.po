@@ -1,0 +1,107 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: IM8 Box Hide v2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-04-27 16:48+0100\n"
+"PO-Revision-Date: 2013-12-18 16:41:46+0000\n"
+"Last-Translator: Francesco Canovi <francesco@blackstudio.it>\n"
+"Language-Team: Daniel Hoffmann, Francesco Canovi <hoffmann@intermedi8.de>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: CSL v1.x\n"
+"X-Poedit-Language: Italian\n"
+"X-Poedit-Country: ITALY\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: ..\n"
+"X-Textdomain-Support: yes"
+
+#: im8-box-hide.php:490
+#@ im8-box-hide
+msgid "Anleitung"
+msgstr "Manuale"
+
+#: im8-box-hide.php:495
+#@ im8-box-hide
+msgid "Hilfe & Infos"
+msgstr "Aiuto e informazioni"
+
+#: im8-box-hide.php:497
+#@ im8-box-hide
+msgid "Besuche unsere Website"
+msgstr "Visita il nostro sito"
+
+#: im8-box-hide.php:395
+#@ im8-box-hide
+msgid "Alle Boxen für diese Gruppe an/aus"
+msgstr "Attiva/disattiva tutti i box per questo gruppo"
+
+#: im8-box-hide.php:461
+#@ im8-box-hide
+msgid "Box für alle Gruppen an/aus"
+msgstr "Attiva/disattiva box per tutti i gruppi"
+
+#: im8-box-hide.php:304
+#@ default
+msgid "Save Changes"
+msgstr "Salva"
+
+#. translators: plugin header field 'Name'
+#: im8-box-hide.php:0
+#@ im8-box-hide
+msgid "IM8 Box Hide"
+msgstr ""
+
+#. translators: plugin header field 'AuthorURI'
+#: im8-box-hide.php:0
+#@ im8-box-hide
+msgid "http://intermedi8.de"
+msgstr ""
+
+#. translators: plugin header field 'Version'
+#: im8-box-hide.php:0
+#@ im8-box-hide
+msgid "2.0"
+msgstr ""
+
+#: im8-box-hide.php:466
+#@ im8-box-hide
+msgid "<b>IM8 Box Hide</b> is powered by <b>intermedi8</b>"
+msgstr ""
+
+#: im8-box-hide.php:492
+#@ im8-box-hide
+msgid ""
+"<p>Hier kannst du Metaboxen für bestimmte Benutzergruppen deaktivieren. <b>Eine eingeschaltete Checkbox bedeutet, dass diese Box ausgeblendet wird</b>.</p>\n"
+"\t\t\t<p>Die Icons neben den Boxen bzw. unterhalb der Benutzergruppen schalten den Status jeweils für die entsprechende Zeile bzw. Spalte ein oder aus.</p>"
+msgstr ""
+"<p>Qui è possibile disattivare i metaboxes in base ai gruppi utenti. <b>Una checkbox selezionata significa che il metabox corrispondente sarà nascosto</b>.</p>\n"
+"\\\t\\\t\\\t<p>Le icone accanto ai metaboxes e sotto i gruppi utenti modificano lo stato per una riga o una colonna completa.</p>"
+
+#. translators: plugin header field 'PluginURI'
+#: im8-box-hide.php:0
+#@ im8-box-hide
+msgid "http://wordpress.org/plugins/im8-box-hide/"
+msgstr ""
+
+#. translators: plugin header field 'Description'
+#: im8-box-hide.php:0
+#@ im8-box-hide
+msgid "Hide meta boxes based on roles."
+msgstr ""
+
+#. translators: plugin header field 'Author'
+#: im8-box-hide.php:0
+#@ im8-box-hide
+msgid "intermedi8"
+msgstr ""
+
+#: im8-box-hide.php:440
+#@ default
+msgid "Settings"
+msgstr ""
+

@@ -1,0 +1,19 @@
+/**
+ * IM8 Box Hide CSS
+ *
+ * Author: intermedi8
+ * Author URI: http://intermedi8.de
+ */
+
+
+img.js_btn {
+	cursor: pointer;
+}
+
+th img.js_btn {
+	margin-top: 8px;
+}
+
+img.loading {
+	display: none;
+}
