@@ -3,7 +3,7 @@
  * Plugin Name: IM8 Box Hide
  * Plugin URI: http://wordpress.org/plugins/im8-box-hide/
  * Description: Hide meta boxes based on roles.
- * Version: 2.0
+ * Version: 2.1
  * Author: intermedi8
  * Author URI: http://intermedi8.de
  * License: MIT
@@ -11,6 +11,10 @@
  * Text Domain: im8-box-hide
  * Domain Path: /languages
  */
+
+
+if (! defined('ABSPATH'))
+	exit;
 
 
 if (! class_exists('IM8BoxHide')) :
@@ -34,7 +38,7 @@ class IM8BoxHide {
 	 *
 	 * @type	string
 	 */
-	protected $version = '2.0';
+	protected $version = '2.1';
 
 
 	/**
@@ -111,7 +115,7 @@ class IM8BoxHide {
 
 
 	/**
-	 * Constructor. Registers activation routine.
+	 * Constructor. Register activation routine.
 	 *
 	 * @hook	wp_loaded
 	 * @return	void
@@ -136,7 +140,7 @@ class IM8BoxHide {
 
 
 	/**
-	 * Registers uninstall routine.
+	 * Register uninstall routine.
 	 *
 	 * @hook	activation
 	 * @return	void
@@ -147,7 +151,7 @@ class IM8BoxHide {
 
 
 	/**
-	 * Checks if the plugin has to be loaded.
+	 * Check if the plugin has to be loaded.
 	 *
 	 * @return	boolean
 	 */
@@ -165,7 +169,7 @@ class IM8BoxHide {
 
 
 	/**
-	 * Registers plugin actions and filters.
+	 * Register plugin actions and filters.
 	 *
 	 * @hook	wp_loaded
 	 * @return	void
@@ -198,7 +202,7 @@ class IM8BoxHide {
 
 
 	/**
-	 * Checks for and performs necessary updates.
+	 * Check for and perform necessary updates.
 	 *
 	 * @hook	admin_init
 	 * @return	void
@@ -259,7 +263,7 @@ class IM8BoxHide {
 
 
 	/**
-	 * Adds custom settings page to user settings.
+	 * Add custom settings page to user settings.
 	 *
 	 * @hook	admin_menu
 	 * @return	void
@@ -270,7 +274,7 @@ class IM8BoxHide {
 
 
 	/**
-	 * Prints settings page.
+	 * Print settings page.
 	 *
 	 * @see		add_settings_page()
 	 * @return	void
@@ -312,7 +316,7 @@ class IM8BoxHide {
 
 
 	/**
-	 * Gets relevant post types.
+	 * Get relevant post types.
 	 *
 	 * @see		print_settings_page()
 	 * @param	string $output Type of output, either 'names' or 'objects'
@@ -320,7 +324,7 @@ class IM8BoxHide {
 	 */
 	protected function get_post_types($output='names') {
 		$args = array(
-			'public' => true,
+			'show_ui' => true,
 		);
 		if (! is_array($post_types = get_post_types($args, $output)))
 			return array();
@@ -370,7 +374,7 @@ class IM8BoxHide {
 
 
 	/**
-	 * Generates table for settings page.
+	 * Generate table for settings page.
 	 *
 	 * @see		print_settings_page()
 	 * @param	string $headline Settings section heading.
@@ -407,7 +411,7 @@ class IM8BoxHide {
 
 
 	/**
-	 * Removes meta boxes according to saved settings.
+	 * Remove meta boxes according to saved settings.
 	 *
 	 * @hook	do_meta_boxes
 	 * @return	void
@@ -429,7 +433,7 @@ class IM8BoxHide {
 
 
 	/**
-	 * Adds a link to the settings to the plugin list.
+	 * Add settings link to the plugin list.
 	 *
 	 * @hook	plugin_action_links_{$file}
 	 * @param	array $links Already existing links.
@@ -445,7 +449,7 @@ class IM8BoxHide {
 
 
 	/**
-	 * Enqueues necessary script files.
+	 * Enqueue necessary script files.
 	 *
 	 * @hook	admin_print_scripts-users_page_im8-box-hide
 	 * @return	void
@@ -474,7 +478,7 @@ class IM8BoxHide {
 
 
 	/**
-	 * Registers plugin's contextual help.
+	 * Register plugin's contextual help.
 	 *
 	 * @filter	contextual_help
 	 * @param	string $help Contextual help.
@@ -504,7 +508,7 @@ class IM8BoxHide {
 
 
 	/**
-	 * Registers setting for custom options page.
+	 * Register setting for custom options page.
 	 *
 	 * @hook	admin_init
 	 * @return	void
@@ -515,7 +519,7 @@ class IM8BoxHide {
 
 
 	/**
-	 * Prepares option values before they are saved.
+	 * Prepare option values before they are saved.
 	 *
 	 * @param	array $data Original option values.
 	 * @return	array Sanitized option values.
@@ -532,7 +536,7 @@ class IM8BoxHide {
 
 
 	/**
-	 * Loads plugin textdomain.
+	 * Load plugin textdomain.
 	 *
 	 * @return	boolean
 	 */
@@ -552,7 +556,7 @@ class IM8BoxHide {
 
 
 	/**
-	 * Deletes plugin data on uninstall.
+	 * Delete plugin data on uninstall.
 	 *
 	 * @hook	uninstall
 	 * @return	void
@@ -569,4 +573,3 @@ if (IM8BoxHide::has_to_be_loaded())
 
 
 endif; // if (! class_exists('IM8BoxHide'))
-?>

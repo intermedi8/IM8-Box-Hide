@@ -15,7 +15,7 @@ Hide meta boxes based on roles.
 **Hide meta boxes based on roles.**
 
 * Hide core meta boxes (e.g., _Page Attributes_ and _Custom Fields_)
-* Hide plugin meta boxes (e.g., _All in One SEO_ and _Mappress_)
+* Hide plugin meta boxes (e.g., _All in One SEO Pack_ and _MapPress_)
 * Hide theme meta boxes
 * Hide custom post type meta boxes
 * Support for additional user roles (works great with plugins such as _Capability Manager_, _Capability Manager Enhanced_ and _User Role Editor_)
@@ -36,6 +36,11 @@ If you would like to **contribute** to this plugin, see its <a href="https://git
 2. **Add New Page page with hidden meta boxes** - Only the _Publish_ meta box is visible, all other meta boxes are hidden.
 
 == Changelog ==
+
+= 2.1 =
+* added direct access guard
+* removed trailing `?>`
+* in `get_post_types` function, changed argument `'public' => true` to `'show_ui' => true`
 
 = 2.0 =
 * Complete refactoring (object oriented programming)
