@@ -3,7 +3,7 @@
  * Plugin Name: IM8 Box Hide
  * Plugin URI: http://wordpress.org/plugins/im8-box-hide/
  * Description: Hide meta boxes based on roles.
- * Version: 2.1
+ * Version: 2.2
  * Author: intermedi8
  * Author URI: http://intermedi8.de
  * License: MIT
@@ -38,7 +38,7 @@ class IM8BoxHide {
 	 *
 	 * @type	string
 	 */
-	protected $version = '2.1';
+	protected $version = '2.2';
 
 
 	/**
@@ -419,8 +419,7 @@ class IM8BoxHide {
 	public function remove_meta_boxes() {
 		$hide = $this->get_option('hide');
 
-		get_currentuserinfo();
-		$user_role = array_shift($GLOBALS['current_user']->roles);
+		$user_role = wp_get_current_user()->roles[0];
 
 		if (isset($hide[$user_role]))
 			foreach ($hide[$user_role] as $post_type => $meta_box)
