@@ -37,6 +37,9 @@ If you would like to **contribute** to this plugin, see its <a href="https://git
 
 == Changelog ==
 
+= 2.3 =
+* fixed bug that prevented plugin from being loaded when activated network-wide
+
 = 2.2 =
 * fixed bug in `remove_meta_boxes` function that broke other plugins working with `$GLOBALS['current_user']` (such as Adminimize)
 

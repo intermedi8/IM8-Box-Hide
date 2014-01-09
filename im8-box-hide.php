@@ -3,7 +3,7 @@
  * Plugin Name: IM8 Box Hide
  * Plugin URI: http://wordpress.org/plugins/im8-box-hide/
  * Description: Hide meta boxes based on roles.
- * Version: 2.2
+ * Version: 2.3
  * Author: intermedi8
  * Author URI: http://intermedi8.de
  * License: MIT
@@ -13,6 +13,7 @@
  */
 
 
+// Exit on direct access
 if (! defined('ABSPATH'))
 	exit;
 
@@ -38,7 +39,7 @@ class IM8BoxHide {
 	 *
 	 * @type	string
 	 */
-	protected $version = '2.2';
+	protected $version = '2.3';
 
 
 	/**
@@ -151,21 +152,25 @@ class IM8BoxHide {
 
 
 	/**
-	 * Check if the plugin has to be loaded.
+	 * Check if the plugin has to be initialized.
 	 *
+	 * @hook	plugins_loaded
 	 * @return	boolean
 	 */
-	public static function has_to_be_loaded() {
+	public static function init_on_demand() {
 		global $pagenow;
 
 		if (empty($pagenow))
-			return false;
+			return;
 
 		self::$page_base = basename($pagenow, '.php');
 
-		// Load plugin for all admin pages
-		return is_admin();
-	} // function has_to_be_loaded
+		// Initialize plugin for admin pages only
+		if (! is_admin())
+			return;
+
+		add_action('wp_loaded', array(self::$instance, 'init'));
+	} // function init_on_demand
 
 
 	/**
@@ -567,8 +572,7 @@ class IM8BoxHide {
 } // class IM8BoxHide
 
 
-if (IM8BoxHide::has_to_be_loaded())
-	add_action('wp_loaded', array(IM8BoxHide::get_instance(), 'init'));
+add_action('plugins_loaded', array(IM8BoxHide::get_instance(), 'init_on_demand'));
 
 
 endif; // if (! class_exists('IM8BoxHide'))
