@@ -3,7 +3,7 @@
  * Plugin Name: IM8 Box Hide
  * Plugin URI: http://wordpress.org/plugins/im8-box-hide/
  * Description: Hide meta boxes based on roles.
- * Version: 2.3
+ * Version: 2.4
  * Author: intermedi8
  * Author URI: http://intermedi8.de
  * License: MIT
@@ -39,7 +39,7 @@ class IM8BoxHide {
 	 *
 	 * @type	string
 	 */
-	protected $version = '2.3';
+	protected $version = '2.4';
 
 
 	/**
@@ -91,6 +91,14 @@ class IM8BoxHide {
 
 
 	/**
+	 * Plugin repository.
+	 *
+	 * @type	string
+	 */
+	protected $repository = 'im8-box-hide';
+
+
+	/**
 	 * Standard meta box contexts.
 	 *
 	 * @type	array
@@ -118,7 +126,7 @@ class IM8BoxHide {
 	/**
 	 * Constructor. Register activation routine.
 	 *
-	 * @hook	wp_loaded
+	 * @see		get_instance()
 	 * @return	void
 	 */
 	public function __construct() {
@@ -129,7 +137,7 @@ class IM8BoxHide {
 	/**
 	 * Get plugin instance.
 	 *
-	 * @hook	wp_loaded
+	 * @hook	plugins_loaded
 	 * @return	object IM8BoxHide
 	 */
 	public static function get_instance() {
@@ -193,8 +201,10 @@ class IM8BoxHide {
 		if (in_array(self::$page_base, $pages))
 			add_action('do_meta_boxes', array($this, 'remove_meta_boxes'), PHP_INT_MAX);
 
-		if ('plugins' === self::$page_base)
+		if ('plugins' === self::$page_base) {
 			add_filter('plugin_action_links_'.plugin_basename(__FILE__), array($this, 'add_settings_link'));
+			add_action('in_plugin_update_message-'.basename(dirname(__FILE__)).'/'.basename(__FILE__), array($this, 'update_message'), 10, 2);
+		}
 
 		if ('users' === self::$page_base) {
 			add_action('admin_print_scripts-users_page_im8-box-hide', array($this, 'enqueue_scripts'));
@@ -343,7 +353,6 @@ class IM8BoxHide {
 	/**
 	 * Get meta boxes for current post type.
 	 *
-	 * @see		init
 	 * @hook	do_meta_boxes
 	 * @param	string $post_type Current post type
 	 * @return	JSON response
@@ -369,6 +378,18 @@ class IM8BoxHide {
 									$v_box['id'],
 									$v_box['title']
 								);
+
+			if (post_type_supports($post_type, 'revisions'))
+				$metaBoxes[] = array(
+					'revisionsdiv',
+					__('Revisions')
+				);
+
+			if (post_type_supports($post_type, 'comments'))
+				$metaBoxes[] = array(
+					'commentsdiv',
+					__('Comments')
+				);
 
 			wp_send_json(array(
 				'metaBoxes' => $metaBoxes,
@@ -453,6 +474,47 @@ class IM8BoxHide {
 
 
 	/**
+	 * Print update message based on current plugin version's readme file.
+	 *
+	 * @hook	in_plugin_update_message-{$file}
+	 * @param	array $plugin_data Plugin metadata.
+	 * @param	array $r Metadata about the available plugin update.
+	 * @return	void
+	 */
+	public function update_message($plugin_data, $r) {
+		if ($plugin_data['update']) {
+			$readme = wp_remote_fopen('http://plugins.svn.wordpress.org/'.$this->repository.'/trunk/readme.txt');
+			if (! $readme)
+				return;
+
+			$pattern = '/==\s*Changelog\s*==(.*)=\s*'.preg_quote($this->version).'\s*=/s';
+			if (
+				false === preg_match($pattern, $readme, $matches)
+				|| ! isset($matches[1])
+			)
+				return;
+
+			$changelog = (array) preg_split('/[\r\n]+/', trim($matches[1]));
+			if (empty($changelog))
+				return;
+
+			$output = '<div style="margin: 8px 0 0 26px;">';
+			$output .= '<ul style="margin-left: 14px; line-height: 1.5; list-style: disc outside none;">';
+
+			$item_pattern = '/^\s*\*\s*/';
+			foreach ($changelog as $line)
+				if (preg_match($item_pattern, $line))
+					$output .= '<li>'.preg_replace('/`([^`]*)`/', '<code>$1</code>', htmlspecialchars(preg_replace($item_pattern, '', trim($line)))).'</li>';
+
+			$output .= '</ul>';
+			$output .= '</div>';
+
+			echo $output;
+		}
+	} // function update_message
+
+
+	/**
 	 * Enqueue necessary script files.
 	 *
 	 * @hook	admin_print_scripts-users_page_im8-box-hide
@@ -460,7 +522,8 @@ class IM8BoxHide {
 	 */
 	public function enqueue_scripts() {
 		$this->load_textdomain();
-		wp_enqueue_style('im8_box_hide', plugin_dir_url(__FILE__).'css/im8-box-hide.css', array(), filemtime(plugin_dir_path(__FILE__).'css/im8-box-hide.css'));
+		$file = 'css/im8-box-hide.css';
+		wp_enqueue_style('im8_box_hide', plugin_dir_url(__FILE__).$file, array(), filemtime(plugin_dir_path(__FILE__).$file));
 		$roles = array();
 		foreach ($GLOBALS['wp_roles']->roles as $role => $v)
 			$roles[] = $role;
@@ -471,11 +534,13 @@ class IM8BoxHide {
 			'nonce' => wp_create_nonce($this->nonce),
 			'optionName' => $this->option_name,
 			'postTypes' => array_values($this->get_post_types()),
+			'postURL' => admin_url('post-new.php', 'relative'),
 			'poweredBy' => __('<b>IM8 Box Hide</b> is powered by <b>intermedi8</b>', 'im8-box-hide'),
 			'roles' => $roles,
 		);
 		$handle = 'im8-box-hide-js';
-		wp_enqueue_script($handle, plugin_dir_url(__FILE__).'js/im8-box-hide.js', array('jquery'), filemtime(plugin_dir_path(__FILE__).'js/im8-box-hide.js'), true);
+		$file = 'js/im8-box-hide.js';
+		wp_enqueue_script($handle, plugin_dir_url(__FILE__).$file, array('jquery'), filemtime(plugin_dir_path(__FILE__).$file), true);
 		wp_localize_script($handle, 'localizedData', $data);
 		$this->unload_textdomain();
 	} // function enqueue_scripts
@@ -484,7 +549,7 @@ class IM8BoxHide {
 	/**
 	 * Register plugin's contextual help.
 	 *
-	 * @filter	contextual_help
+	 * @hook	contextual_help
 	 * @param	string $help Contextual help.
 	 * @param	mixed Screen reference (object or ID).
 	 * @return	string Contextual help.

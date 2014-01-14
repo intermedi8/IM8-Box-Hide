@@ -37,6 +37,12 @@ If you would like to **contribute** to this plugin, see its <a href="https://git
 
 == Changelog ==
 
+= 2.4 =
+* the URL for the AJAX request is now set by using the `admin_url` function
+* integrated plugin update message
+* added missing Comments and Revisions meta boxes for supporting post types
+* corrected some DocBlocks
+
 = 2.3 =
 * fixed bug that prevented plugin from being loaded when activated network-wide
 
@@ -59,13 +65,13 @@ If you would like to **contribute** to this plugin, see its <a href="https://git
 * Pushed plugin back to active state
 
 = 1.47 =
-* Added italian translation. Credits go to Francesco Canovi. Thank you =)
+* Added Italian translation. Credits go to Francesco Canovi. Thank you =)
 
 = 1.45 =
 * Added support for the new "Featured image" metabox. Thanks to "hansmagnus" for the hint.
 
 = 1.44 =
-* Added dutch translations by Marius Siroen (grafcom). Fixed some metabox descriptions.
+* Added Dutch translations by Marius Siroen (grafcom). Fixed some metabox descriptions.
 
 = 1.42 =
 * Bugfix fixing renamed metaboxes in wordpress 3. Credits go to "grafcom" for reporting the bug and workaround.

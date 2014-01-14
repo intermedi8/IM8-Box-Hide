@@ -53,7 +53,7 @@ jQuery(function($) {
 			var postType = localizedData.postTypes[i];
 			$.ajax({
 				type: 'post',
-				url: 'post-new.php?post_type='+postType,
+				url: localizedData.postURL+'?post_type='+postType,
 				data: {
 					action: 'im8-box-hide',
 					_ajax_nonce: localizedData.nonce
